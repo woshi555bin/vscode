@@ -26,8 +26,9 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor= vscode.window.activeTextEditor;
 		// 拿到光标选中的文本并格式化
 		const selection = editor!.selection;
-		const text = editor!.document.getText(selection);
-		const logToInsert = `console.log('${text}: ',${text});\n`;
+		let text = editor!.document.getText(selection);
+		text.replace(/(^\s*)|(\s*$)/g,'');
+		const logToInsert = `console.log('${text}:',${text});\n`;
 		text ? insertText(logToInsert) : insertText('console.log();');
 	});
 
